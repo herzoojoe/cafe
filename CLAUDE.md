@@ -28,7 +28,8 @@ bash build.sh
 
 ## Content decisions the owner made
 
-- Palette is warm coffee brown: latte-foam background, espresso text, caramel accent (`--rose` holds the caramel accent and `--leaf` holds mocha; the token names are left over from an earlier green/pink palette). The exception is the hero (first screen with the title), which the owner wanted in garden green: forest-green background (`--hero-bg`), pale leaf-green `--hero-accent` on "정원", and leaf-green/cream falling pieces (the `colors` array in the script). The hero is dark in both themes. The rest of the page stays brown.
+- Palette is warm coffee brown: latte-foam background, espresso text, caramel accent (`--rose` holds the caramel accent and `--leaf` holds mocha; the token names are left over from an earlier green/pink palette). The exception is the hero (first screen with the title), which the owner wanted in garden green: forest-green background (`--hero-bg`), pale leaf-green `--hero-accent` on "정원", and leaf-green/cream falling pieces (the `colors` array in the script). The hero is dark in both themes.
+- Each section has its own color so the boundaries show on phones (owner's request): 이야기 = garden green, 로스팅 = dark espresso band with cream text, 원두 = coffee-cherry pink/red, 메뉴 = milk, 오시는 길 = lavender. These are `--story-*`, `--roasting-*`, `--beans-*`, `--menu-*`, `--visit-*` tokens; each `#section` rule re-defines `--rose`/`--leaf`/`--ink` locally. The sticky nav colors the active link and its bottom border with that section's `--nav-*` color, set by the nav script on click and on scroll. On phones the dots are hidden and links use colored text so all five fit on one line.
 - Body text is 18px. The owner asked for larger text, so don't shrink sizes back down.
 
 - Title is `공주의 <span>정원</span>` followed by a smaller `Princess Garden`.

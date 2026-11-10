@@ -17,6 +17,15 @@
   --hero-bg: #2C4634;   /* 첫 화면만 정원의 숲 그린 */
   --hero-fg: #F4EBE1;
   --hero-accent: #B7D8A8; /* 히어로는 두 테마 모두 어두운 바탕 */
+  /* 섹션별 색: 이야기=정원 그린, 로스팅=에스프레소, 원두=커피 체리, 메뉴=밀크, 오시는 길=라벤더 */
+  --story-bg: #E3ECDA;  --story-acc: #3D6B4B;
+  --roasting-bg: #3A2418; --roasting-fg: #F4EBE1; --roasting-muted: #D2BBA6; --roasting-line: #5E3F2C; --roasting-acc: #F2A35E;
+  --beans-bg: #F6E1DC;  --beans-acc: #A0363A;
+  --menu-bg: #FBF5EC;   --menu-acc: #A85A2A;
+  --visit-bg: #EAE5F3;  --visit-acc: #65509A;
+  /* 메뉴 버튼 색 (진한 색 + 흰 글씨) */
+  --nav-story: #3D6B4B; --nav-roasting: #3A2418; --nav-beans: #A0363A; --nav-menu: #A85A2A; --nav-visit: #65509A;
+  --on-nav: #FFFFFF;
   --display: "Gowun Batang", "Nanum Myeongjo", "Batang", serif;
   --body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
@@ -25,12 +34,26 @@
   :root:not([data-theme="light"]) {
     --bg: #1A120D; --surface: #241912; --ink: #F0E4D7; --muted: #B59D89; --line: #3B2B21;
     --rose: #E2A26C; --roast: #D3A47E; --leaf: #CC9C77; --hero-bg: #16251B; --hero-fg: #F0E4D7;
+    --story-bg: #17241B; --story-acc: #93C3A0;
+    --roasting-bg: #2B1A10; --roasting-fg: #F0E4D7; --roasting-muted: #C0A68F; --roasting-line: #4A3324; --roasting-acc: #F2A35E;
+    --beans-bg: #2A1617; --beans-acc: #EC8C88;
+    --menu-bg: #1F1610; --menu-acc: #E2A26C;
+    --visit-bg: #1E1A2B; --visit-acc: #B9A6E6;
+    --nav-story: #93C3A0; --nav-roasting: #F2A35E; --nav-beans: #EC8C88; --nav-menu: #E2A26C; --nav-visit: #B9A6E6;
+    --on-nav: #1A120D;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #1A120D; --surface: #241912; --ink: #F0E4D7; --muted: #B59D89; --line: #3B2B21;
   --rose: #E2A26C; --roast: #D3A47E; --leaf: #CC9C77; --hero-bg: #16251B; --hero-fg: #F0E4D7;
+  --story-bg: #17241B; --story-acc: #93C3A0;
+  --roasting-bg: #2B1A10; --roasting-fg: #F0E4D7; --roasting-muted: #C0A68F; --roasting-line: #4A3324; --roasting-acc: #F2A35E;
+  --beans-bg: #2A1617; --beans-acc: #EC8C88;
+  --menu-bg: #1F1610; --menu-acc: #E2A26C;
+  --visit-bg: #1E1A2B; --visit-acc: #B9A6E6;
+  --nav-story: #93C3A0; --nav-roasting: #F2A35E; --nav-beans: #EC8C88; --nav-menu: #E2A26C; --nav-visit: #B9A6E6;
+  --on-nav: #1A120D;
   color-scheme: dark;
 }
 
@@ -68,16 +91,39 @@ section { scroll-margin-top: 56px; }
 .hero .meta { display: flex; flex-wrap: wrap; gap: 10px 28px; font-family: var(--mono); font-size: 14px; opacity: .75; }
 .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .5; pointer-events: none; }
 
-nav.top { border-bottom: 1px solid var(--line); background: var(--bg); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; }
-nav.top .wrap { display: flex; gap: 22px; padding-block: 12px; overflow-x: auto; font-size: 16px; }
-nav.top a { text-decoration: none; color: var(--muted); white-space: nowrap; }
-nav.top a:hover { color: var(--ink); }
+nav.top { border-bottom: 3px solid var(--active, var(--line)); background: var(--bg); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; transition: border-color .25s; }
+nav.top .wrap { display: flex; gap: 6px; padding-block: 10px; overflow-x: auto; font-size: 16px; }
+nav.top a[href="#story"] { --c: var(--nav-story); }
+nav.top a[href="#roasting"] { --c: var(--nav-roasting); }
+nav.top a[href="#beans"] { --c: var(--nav-beans); }
+nav.top a[href="#menu"] { --c: var(--nav-menu); }
+nav.top a[href="#visit"] { --c: var(--nav-visit); }
+nav.top a {
+  display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px; border-radius: 999px;
+  text-decoration: none; color: var(--ink); white-space: nowrap; transition: background .2s, color .2s;
+}
+nav.top a::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); flex: none; }
+nav.top a:hover { background: color-mix(in srgb, var(--c) 14%, transparent); }
+nav.top a.active { background: var(--c); color: var(--on-nav); font-weight: 700; }
+nav.top a.active::before { background: var(--on-nav); }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--hero-bg); }
 
 section { padding-block: 72px; border-bottom: 1px solid var(--line); }
 section .head { display: grid; gap: 10px; margin-bottom: 36px; max-width: 40em; }
 section h2 { font-size: clamp(30px, 5vw, 44px); }
 section .head p { color: var(--muted); }
+
+/* 섹션별 바탕색과 강조색: 강조 토큰(--rose, --leaf)을 섹션 안에서 다시 정의 */
+section { color: var(--ink); }
+#story { background: var(--story-bg); --rose: var(--story-acc); --leaf: var(--story-acc); --line: color-mix(in srgb, var(--story-acc) 25%, transparent); }
+#roasting {
+  background: var(--roasting-bg);
+  --ink: var(--roasting-fg); --muted: var(--roasting-muted); --line: var(--roasting-line);
+  --rose: var(--roasting-acc); --roast: var(--roasting-acc);
+}
+#beans { background: var(--beans-bg); --rose: var(--beans-acc); --leaf: var(--beans-acc); }
+#menu { background: var(--menu-bg); --rose: var(--menu-acc); }
+#visit { background: var(--visit-bg); --rose: var(--visit-acc); --line: color-mix(in srgb, var(--visit-acc) 25%, transparent); }
 
 /* Story */
 .story { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
@@ -151,6 +197,10 @@ footer strong { font-family: var(--display); color: var(--ink); font-size: 21px;
   .story, .menu, .visit, .beans, .steps { grid-template-columns: 1fr; }
   section { padding-block: 52px; }
   .hero .wrap { padding-block: 56px 48px; }
+  /* 휴대폰: 점 대신 글자색으로 섹션 색을 보여 줘서 메뉴가 한 줄에 들어가게 */
+  nav.top .wrap { gap: 2px; justify-content: space-between; }
+  nav.top a { padding: 5px 10px; color: var(--c); font-weight: 500; }
+  nav.top a::before { display: none; }
   .hero h1 .en { display: block; margin-left: 0; margin-top: .3em; }
 }
 </style>
@@ -359,6 +409,39 @@ footer strong { font-family: var(--display); color: var(--ink); font-size: 21px;
 </footer>
 
 <script>
+// 메뉴: 누르거나 스크롤해서 들어온 섹션의 색으로 메뉴 버튼과 아래 선을 칠함
+(() => {
+  const nav = document.querySelector('nav.top');
+  const links = [...nav.querySelectorAll('a')];
+  const byId = Object.fromEntries(links.map(a => [a.getAttribute('href').slice(1), a]));
+  let lockUntil = 0, shown;
+  function activate(id) {
+    if (id === shown) return;
+    shown = id;
+    const a = byId[id];
+    links.forEach(l => l.classList.toggle('active', l === a));
+    if (a) {
+      nav.style.setProperty('--active', 'var(--nav-' + id + ')');
+      a.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    } else {
+      nav.style.removeProperty('--active');
+    }
+  }
+  links.forEach(a => a.addEventListener('click', () => {
+    lockUntil = Date.now() + 900;
+    activate(a.getAttribute('href').slice(1));
+  }));
+  const sections = Object.keys(byId).map(id => document.getElementById(id)).filter(Boolean);
+  function onScroll() {
+    if (Date.now() < lockUntil) return;
+    const line = nav.getBoundingClientRect().bottom + 80;
+    let current = null;
+    for (const s of sections) if (s.getBoundingClientRect().top <= line) current = s.id;
+    activate(current);
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
 (() => {
   const c = document.getElementById('petals');
   const ctx = c.getContext('2d');
