@@ -12,7 +12,7 @@ A one-page introduction site for **공주의 정원 (Princess Garden)**, a roast
 
 Because the Artifact platform wraps the file in its own document skeleton, `index.html` intentionally has **no** `<!doctype>`, `<html>`, `<head>`, or `<body>` tags — it starts with `<title>`, the fonts `<link>`, and `<style>`. Don't add them. Opening `index.html` directly in a browser renders in quirks mode with no viewport meta.
 
-The same page is also a website, served by GitHub Pages from the `docs/` folder of https://github.com/herzoojoe/cafe (branch `main`). `docs/index.html` is generated, never edited by hand:
+The same page is also a public website at https://herzoojoe.github.io/cafe/, served by GitHub Pages from the `docs/` folder of the public repo https://github.com/herzoojoe/cafe (branch `main`). Pushing to `main` redeploys it. `docs/index.html` is generated, never edited by hand:
 
 ```bash
 bash build.sh
